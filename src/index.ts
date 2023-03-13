@@ -1,6 +1,7 @@
 import {spawn} from 'child_process';
 import DefaultRenditions from './default-renditions';
 import fs from 'fs';
+const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 
 class Transcode {
     inputPath: string;
@@ -16,7 +17,7 @@ class Transcode {
       return new Promise(async (resolve, reject) =>  {
         const commands : any  = await this.buildCommands();
         const masterPlaylist = await this.writePlaylist();
-        const ls = spawn('ffmpeg', commands);
+        const ls = spawn(ffmpegPath, commands);
         let showLogs = true;
         if (this.options.showLogs == false){
           showLogs = false;
